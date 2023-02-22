@@ -71,14 +71,6 @@ def check_end_state(game_matrix):
 
 
 
-    # Check whether draw is present
-
-
-
-
-
-
-
 
 
 
