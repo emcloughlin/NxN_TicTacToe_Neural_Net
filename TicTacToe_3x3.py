@@ -41,9 +41,9 @@ def check_end_state(game_matrix: ArrayLike):
     o_win = 2.0
     no_end = -1.0
     # Check diags for win state
-    if (np.sum(np.diag(game_matrix)) == n or np.sum(np.diag(game_matrix.T)) == n):
+    if (np.sum(np.diag(game_matrix)) == n or np.sum(np.diag(np.flipud(game_matrix))) == n):
         return x_win
-    if (np.sum(np.diag(game_matrix)) == -n or np.sum(np.diag(game_matrix.T)) == -n):
+    if (np.sum(np.diag(game_matrix)) == -n or np.sum(np.diag(np.flipud(game_matrix))) == -n):
         return o_win
     # Check rows for win state
     for row in game_matrix:
