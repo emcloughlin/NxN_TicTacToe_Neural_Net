@@ -67,8 +67,8 @@ def check_end_state(game_matrix: ArrayLike):
 
 # %%
 
-# A function to play tic-tac-toe with no strategy (random input)
-def ttt_random_move(game_matrix: ArrayLike, play_as_x: bool) -> np.ndarray:
+# A function to make tic-tac-toe moves with no strategy (random input)
+def random_move(game_matrix: ArrayLike, play_as_x: bool) -> np.ndarray:
     if play_as_x:
         mark = 1.0
     else:
@@ -84,7 +84,49 @@ def ttt_random_move(game_matrix: ArrayLike, play_as_x: bool) -> np.ndarray:
 
 # %%
 
-# A function to play tic-tac-toe
+# A function to make moves with a little strategy (if a winning move is present, make it)
+def random_move_winning(game_matrix: ArrayLike, play_as_x: bool) -> np.ndarray:
+    if play_as_x:
+        mark = 1.0
+    else:
+        mark = -1.0
+    while True:
+        for row in game_matrix:
+            if (np.sum(row) == mark * 2):
+                with np.nditer(row, op_flags=['readwrite']) as it:
+                    for x in it:
+                        if (x[...] == 0.0):
+                            x[...] = mark
+                            return game_matrix
+        for row in game_matrix.T:
+            if (np.sum(row) == mark * 2):
+                with np.nditer(row, op_flags=['readwrite']) as it:
+                    for x in it:
+                        if (x[...] == 0.0):
+                            x[...] = mark
+                            return game_matrix
+        if (np.sum(np.diag(game_matrix)) == mark * 2):
+            for index in range(0, game_matrix.shape[0]):
+                if (game_matrix[index][index] == 0.0):
+                    game_matrix[index][index] = mark
+                    return game_matrix
+        if (np.sum(np.diag(np.flipud(game_matrix))) == mark * 2):
+            for index in range(0, game_matrix.shape[0]):
+                if (np.flipud(game_matrix[index][index] == 0.0)):
+                    game_matrix = np.flipud(game_matrix)
+                    game_matrix[index][index] = mark
+                    return np.flipud(game_matrix)
+        row_index = random.randint(0, 2)
+        column_index = random.randint(0, 2)
+        if (game_matrix[row_index][column_index] != 0.0):
+            continue
+        else:
+            game_matrix[row_index][column_index] = mark
+            return game_matrix
+
+# %%
+
+# A function to run a full game
 def tic_tac_toe(dimensions: int, display_game_board: bool):
     game_matrix = init_game_matrix(dimensions)
     if (display_game_board):
@@ -97,7 +139,7 @@ def tic_tac_toe(dimensions: int, display_game_board: bool):
             x_turn = True
         else:
             x_turn = False
-        game_matrix = ttt_random_move(game_matrix, x_turn)
+        game_matrix = random_move_winning(game_matrix, x_turn)
         if (display_game_board):
             print("Turn #{turn_num}:".format(turn_num = turn + 1))
             print_game_matrix(game_matrix)
@@ -109,7 +151,7 @@ def tic_tac_toe(dimensions: int, display_game_board: bool):
 # %%
 
 
-
+tic_tac_toe(3, True)
 
 
 
