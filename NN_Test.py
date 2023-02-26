@@ -6,9 +6,13 @@ Created: 2.23.2023
 
 # %%
 import TicTacToe_Solver
-
+import NeuralNet_Class
+import numpy as np
 # %%
 
 game = TicTacToe_Solver.TicTacToe()
 
-game.tic_tac_toe(3, True)
+model = SimpleNeuralNet()
+
+
+

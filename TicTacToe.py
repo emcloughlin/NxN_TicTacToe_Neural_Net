@@ -112,7 +112,7 @@ class TicTacToe:
                         return game_matrix
             if (np.sum(np.diag(np.flipud(game_matrix))) == mark * 2):
                 for index in range(0, game_matrix.shape[0]):
-                    if (np.flipud(game_matrix[index][index] == 0.0)):
+                    if (np.flipud(game_matrix)[index][index] == 0.0):
                         game_matrix = np.flipud(game_matrix)
                         game_matrix[index][index] = mark
                         return np.flipud(game_matrix)
@@ -145,16 +145,25 @@ class TicTacToe:
                 self.print_game_matrix(game_matrix)
             game_state = self.check_end_state(game_matrix)
             turn += 1
-        print("Game Result:")
-        print("Draw.") if (game_state == 0.0) else print("X wins!") if (game_state == 1.0) else print("O wins!")
+        if (display_game_board):
+            print("Game Result:")
+            print("Draw.") if (game_state == 0.0) else print("X wins!") if (game_state == 1.0) else print("O wins!")
+        return game_state
 
 # %%
 
+    def two_d_game_matrix_to_vector(self, game_matrix):
+        """ Return a vector containing the elements of the game matrix """
+        return np.array([game_matrix.flatten()]).T
 
+# %%
 
+    def vector_to_2d_game_matrix(self, game_vector):
+        """ Inverse of the 2d_game_matrix_to_vector() method """
+        vector_root = int(np.sqrt(np.size(game_vector)))
+        return game_vector.reshape((vector_root, vector_root))
 
-
-
+# %%
 
 
 
