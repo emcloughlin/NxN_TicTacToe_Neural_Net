@@ -7,6 +7,8 @@ Created: 2.23.2023
 import numpy as np
 from numpy.typing import ArrayLike
 import random
+import ReinforcementLearning
+import NeuralNet as nn
 
 class TicTacToe:
 # %%
@@ -29,7 +31,6 @@ class TicTacToe:
                     temp = temp + "-" # empty spaces are 0.0
                 temp = temp + " "
             print(temp)
-
 
     # %%
 
@@ -165,7 +166,31 @@ class TicTacToe:
 
 # %%
 
+    def tic_tac_toe_NN(self, dimensions: int):
+        game_matrix = self.init_game_matrix(dimensions)
+        game_state = -1.0 # The condition used to specify an unfinished game
+        turn = 0
+        while (game_state == -1.0):
+            if (turn % 2 == 0):
+                # TODO: add the thing
+                pass
+            else:
+                game_matrix = self.random_move_winning(game_matrix, False)
+            game_state = self.check_end_state(game_matrix)
+            turn += 1
+        return game_state
 
+    def NN_player(self, game_matrix, network_output):
+        """ If the network outputs a legal move, returns the game matrix.
+        If the output is not a legal move, returns none.
+        """
+        mark = 1.0
+        game_matrix = self.two_d_game_matrix_to_vector(game_matrix)
+        if (game_matrix[network_output][0] != 0):
+            return None
+        else:
+            game_matrix[network_output][0] = mark
+            return self.vector_to_2d_game_matrix(game_matrix)
 
 
 
