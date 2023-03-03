@@ -1,5 +1,5 @@
 """
-TicTacToe_Solver.py
+TicTacToe.py
 Author: Evan McLoughlin
 Created: 2.23.2023
 """
@@ -166,25 +166,35 @@ class TicTacToe:
 
 # %%
 
-    def tic_tac_toe_NN(self, dimensions: int):
+    def tic_tac_toe_NN(self, dimensions=3):
+        # Create the game matrix
         game_matrix = self.init_game_matrix(dimensions)
-        game_state = -1.0 # The condition used to specify an unfinished game
+        # Set the game state to unfinished
+        game_state = -1.0
+        # Initialize the number of turns to 0
         turn = 0
-        while (game_state == -1.0):
-            if (turn % 2 == 0):
-                # TODO: add the thing
-                pass
+        while (game_state == -1.0): # While the game is unfinished,
+            if (turn % 2 == 0): # if it is player 1's turn
+                # TODO: Fix this, it doesnt work - NN_player needs another
+                # input, and currently the function has no way to get updated
+                # output from the model every loop
+                game_matrix = self.NN_player(game_matrix)
+                if (game_matrix == None):
+                    return -2.0
             else:
                 game_matrix = self.random_move_winning(game_matrix, False)
             game_state = self.check_end_state(game_matrix)
             turn += 1
         return game_state
 
-    def NN_player(self, game_matrix, network_output):
+    def NN_player(self, game_matrix, network_output, isPlayer1):
         """ If the network outputs a legal move, returns the game matrix.
         If the output is not a legal move, returns none.
         """
-        mark = 1.0
+        if (isPlayer1):
+            mark = 1.0
+        else:
+            mark = -1.0
         game_matrix = self.two_d_game_matrix_to_vector(game_matrix)
         if (game_matrix[network_output][0] != 0):
             return None
@@ -205,4 +215,7 @@ class TicTacToe:
 
 
 
-# %%
+
+
+
+
