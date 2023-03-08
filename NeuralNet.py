@@ -12,11 +12,11 @@ from numpy.typing import ArrayLike
 class NeuralNet:
 
     def __init__(self, network_descriptor: list, rng_seed=1,
-                 network_weights=None):
+                 network_weights=np.array([1])):
         """ Initialize the neural network """
         np.random.seed(rng_seed)
         self.network_descriptor = network_descriptor
-        if (network_weights == None):
+        if (network_weights.all() == 1):
             self.network_weights = self.initialize_network_weights()
         else:
             self.network_weights = network_weights

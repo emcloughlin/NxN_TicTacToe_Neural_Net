@@ -1,0 +1,53 @@
+Step 1:
+
+Initialize the neural networks - create generation 1 with 1000 networks (or however many you decide to use) with randomized weights
+
+# %%
+Step 2:
+
+Test the networks - have each network play 100 games of tic-tac-toe, and record
+the score of each network.
+
+Score is determined as follows:
+    - A win is worth a score of 1
+    - A draw is worth a score of 0.666
+    - A loss is worth a score of 0.333
+    - A game that ends with an illegal move gets a score of 0 (i.e. the network tries to put an mark where there is already one present)
+
+The final score is the average of the scores of all 100 matches
+
+# %%
+Step 3:
+
+Determine the highest scoring networks - fill a list with the top 20% highest scoring networks from generation 1. In our code we currently use 20%, giving us
+the 50 best networks from the original 1000
+
+# %%
+Step 4:
+
+Create generation 2 with 1000 new networks created by "mutating" each network in the list of best networks
+(i.e. if there are 50 networks in the best network list, create 20 new networks from each old network (since 20 * 50 is 1000 networks))
+
+    - Networks are "mutated" by the following steps
+        1. A random set of weights is selected from the old network
+            a. That set of weights is composed of a random selection of 50% of the weights from the original
+        2. Each weight is multiplied by a "scaling factor" that is randomly generated from a normal distribution
+            - Think of this step as like random mutations of each gene - the child network has weights that are similar,
+              but slightly different, from the old parent network
+        3. The "mutated" weights are inserted into the new network
+
+            An Example:
+
+                Old Network - [0.5, 0.7, -0.9]
+                              [0.4, -0.5, 1.2]
+                              [0.8, -1.8, 0.3]
+
+                Mutated Child:
+                              [0.51, 0.7, -0.889]
+                              [0.4, -0.48, 1.2]
+                              [0.799, -1.822, 0.301]
+Step 5:
+Repeat the process starting from step 2, until a better network is "bred" by selecting the best performing from each generation.
+
+
+

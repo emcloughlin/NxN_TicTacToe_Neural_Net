@@ -31,6 +31,7 @@ class TicTacToe:
                     temp = temp + "-" # empty spaces are 0.0
                 temp = temp + " "
             print(temp)
+        print("")
 
     # %%
 
